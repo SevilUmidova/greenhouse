@@ -31,7 +31,7 @@ button{border:0;padding:10px 18px;border-radius:8px;margin:8px;font-weight:600;c
   <p class="muted"><b>Live readings (cloud-synced)</b></p>
 
   <div class="grid" aria-live="polite">
-    <div class="tile"><div class="label">Soil %</div><div id="soil" class="value">--</div></div>
+    <div class="tile"><div class="label">Level %</div><div id="level" class="value">--</div></div>
     <div class="tile"><div class="label">Temp °C</div><div id="temp" class="value">--</div></div>
     <div class="tile"><div class="label">Light %</div><div id="light" class="value">--</div></div>
     <div class="tile"><div class="label">Salt</div><div id="salt" class="value">--</div></div>
@@ -48,7 +48,7 @@ button{border:0;padding:10px 18px;border-radius:8px;margin:8px;font-weight:600;c
 </div>
 
 <script>
-const soilEl = document.getElementById('soil');
+const levelEl = document.getElementById('level');
 const tempEl = document.getElementById('temp');
 const lightEl = document.getElementById('light');
 const saltEl = document.getElementById('salt');
@@ -60,11 +60,11 @@ async function fetchLatest(){
     const r = await fetch('/.netlify/functions/get-latest');
     if (!r.ok) throw new Error('fetch failed');
     const j = await r.json();
-    soilEl.textContent = j.soil ?? '--';
+    levelEl.textContent = j.level ?? '--';
     tempEl.textContent = j.temp ?? '--';
     lightEl.textContent = j.light ?? '--';
     saltEl.textContent = j.salt ?? '--';
-    rawEl.textContent = (j && (j.soil||j.temp||j.light||j.salt)) ? JSON.stringify(j) : '--';
+    rawEl.textContent = (j && (j.level||j.temp||j.light||j.salt)) ? JSON.stringify(j) : '--';
   }catch(e){
     // keep showing old values
     rawEl.textContent = 'Error';
@@ -96,4 +96,5 @@ fetchLatest();
 </script>
 </body>
 </html>
+
 
